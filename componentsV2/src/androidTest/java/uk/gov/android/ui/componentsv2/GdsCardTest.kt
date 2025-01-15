@@ -15,10 +15,10 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class GdsContentTileTest {
+class GdsCardTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val resources = context.resources
-    private val parameters = ContentTilePreviewParameters().values.toList()
+    private val parameters = GdsCardPreviewParameters().values.toList()
     private var onClick: Int = 0
 
     @get:Rule
@@ -30,7 +30,7 @@ class GdsContentTileTest {
     }
 
     @Test
-    fun checkTileWithPrimaryBtnAndAllComponents() {
+    fun checkCardWithPrimaryBtnAndAllComponents() {
         setupContent(parameters[0])
         composeTestRule.apply {
             onNodeWithContentDescription(
@@ -65,7 +65,7 @@ class GdsContentTileTest {
     }
 
     @Test
-    fun checkTileWithSecondaryBtnAndTitle() {
+    fun checkCardWithSecondaryBtnAndTitle() {
         setupContent(parameters[1])
         composeTestRule.apply {
             onNodeWithContentDescription(
@@ -94,7 +94,7 @@ class GdsContentTileTest {
     }
 
     @Test
-    fun checkTileWithPrimaryBtnAndNoImage() {
+    fun checkCardWithPrimaryBtnAndNoImage() {
         setupContent(parameters[2])
         composeTestRule.apply {
             onNodeWithText(
@@ -125,7 +125,7 @@ class GdsContentTileTest {
     }
 
     @Test
-    fun checkTileWithPrimaryBtnAndNoImageAndNoBody() {
+    fun checkCardWithPrimaryBtnAndNoImageAndNoBody() {
         setupContent(parameters[3])
         composeTestRule.apply {
             onNodeWithText(
@@ -152,7 +152,7 @@ class GdsContentTileTest {
     }
 
     @Test
-    fun checkTileWithTitleAndCaption() {
+    fun checkCardWithTitleAndCaption() {
         setupContent(parameters[4])
         composeTestRule.apply {
             onNodeWithText(
@@ -172,7 +172,7 @@ class GdsContentTileTest {
     }
 
     @Test
-    fun checkTileWithPrimaryBtnAndDismissBtnButNoImage() {
+    fun checkCardWithPrimaryBtnAndDismissBtnButNoImage() {
         setupContent(parameters[5])
         composeTestRule.apply {
             onNodeWithText(
@@ -205,7 +205,7 @@ class GdsContentTileTest {
     @Test
     fun testPreview() {
         composeTestRule.setContent {
-            ContentTilePreview(parameters[0])
+            GdsCardPreview(parameters[0])
         }
         composeTestRule.apply {
             onNodeWithContentDescription(
@@ -230,9 +230,9 @@ class GdsContentTileTest {
         }
     }
 
-    private fun setupContent(parameters: ContentTileParameters) {
+    private fun setupContent(parameters: GdsCardParameters) {
         composeTestRule.setContent {
-            GdsContentTile(parameters) {
+            GdsCard(parameters) {
                 onClick++
             }
         }

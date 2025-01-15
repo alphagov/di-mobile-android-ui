@@ -45,8 +45,8 @@ import uk.gov.android.ui.theme.xsmallPadding
 import java.util.MissingResourceException
 
 @Composable
-fun GdsContentTile(
-    parameters: ContentTileParameters,
+fun GdsCard(
+    parameters: GdsCardParameters,
     onClick: () -> Unit,
 ) {
     with(parameters) {
@@ -101,7 +101,7 @@ fun GdsContentTile(
     }
 }
 
-data class ContentTileParameters(
+data class GdsCardParameters(
     @DrawableRes
     val image: Int? = null,
     @StringRes
@@ -133,7 +133,7 @@ data class ContentTileParameters(
 }
 
 @Composable
-private fun ContentTileParameters.TileImage() {
+private fun GdsCardParameters.TileImage() {
     val defaultContentDescription = R.string.vector_image_content_description
     image?.let {
         Box {
@@ -154,7 +154,7 @@ private fun ContentTileParameters.TileImage() {
 }
 
 @Composable
-private fun ContentTileParameters.DismissIcon() {
+private fun GdsCardParameters.DismissIcon() {
     if (showDismissIcon) {
         Icon(
             imageVector = Icons.Default.Close,
@@ -170,7 +170,7 @@ private fun ContentTileParameters.DismissIcon() {
 }
 
 @Composable
-private fun ContentTileParameters.Buttons(
+private fun GdsCardParameters.Buttons(
     onClick: () -> Unit,
 ) {
     text?.let {
@@ -224,9 +224,9 @@ private fun ContentTileParameters.Buttons(
     }
 }
 
-class ContentTilePreviewParameters : PreviewParameterProvider<ContentTileParameters> {
-    override val values: Sequence<ContentTileParameters> = sequenceOf(
-        ContentTileParameters(
+class GdsCardPreviewParameters : PreviewParameterProvider<GdsCardParameters> {
+    override val values: Sequence<GdsCardParameters> = sequenceOf(
+        GdsCardParameters(
             image = R.drawable.ic_tile_image,
             contentDescription = R.string.vector_image_content_description,
             showDismissIcon = true,
@@ -235,31 +235,31 @@ class ContentTilePreviewParameters : PreviewParameterProvider<ContentTileParamet
             body = R.string.body,
             text = R.string.primary_button,
         ),
-        ContentTileParameters(
+        GdsCardParameters(
             image = R.drawable.ic_tile_image,
             title = R.string.title,
             displayPrimary = false,
             text = R.string.secondary_button,
             secondaryIcon = R.drawable.ic_external_site,
         ),
-        ContentTileParameters(
+        GdsCardParameters(
             caption = R.string.caption,
             title = R.string.title,
             body = R.string.body,
             displayPrimary = true,
             text = R.string.primary_button,
         ),
-        ContentTileParameters(
+        GdsCardParameters(
             caption = R.string.caption,
             title = R.string.title,
             displayPrimary = true,
             text = R.string.primary_button,
         ),
-        ContentTileParameters(
+        GdsCardParameters(
             caption = R.string.caption,
             title = R.string.title,
         ),
-        ContentTileParameters(
+        GdsCardParameters(
             showDismissIcon = true,
             caption = R.string.caption,
             title = R.string.title,
@@ -272,11 +272,11 @@ class ContentTilePreviewParameters : PreviewParameterProvider<ContentTileParamet
 
 @Composable
 @PreviewLightDark
-fun ContentTilePreview(
-    @PreviewParameter(ContentTilePreviewParameters::class)
-    parameters: ContentTileParameters,
+fun GdsCardPreview(
+    @PreviewParameter(GdsCardPreviewParameters::class)
+    parameters: GdsCardParameters,
 ) {
     GdsTheme {
-        GdsContentTile(parameters) {}
+        GdsCard(parameters) {}
     }
 }

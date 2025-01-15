@@ -6,21 +6,22 @@ import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 
 @RunWith(Parameterized::class)
-class GdsContentTileScreenshotTest(
-    private val parameters: Pair<ContentTileParameters, NightMode>,
+class GdsCardScreenshotTest(
+    private val parameters: Pair<GdsCardParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {
-        GdsContentTile(parameters.first) { }
+        GdsCard(parameters.first) { }
     }
 
     companion object {
         @JvmStatic
+        // TODO: Rename after screenshot comparison
         @Parameterized.Parameters(name = "{index}GdsContentTileV2")
-        fun values(): List<Pair<ContentTileParameters, NightMode>> {
-            val result: MutableList<Pair<ContentTileParameters, NightMode>> = mutableListOf()
+        fun values(): List<Pair<GdsCardParameters, NightMode>> {
+            val result: MutableList<Pair<GdsCardParameters, NightMode>> = mutableListOf()
 
-            ContentTilePreviewParameters().values.forEach(applyNightMode(result))
+            GdsCardPreviewParameters().values.forEach(applyNightMode(result))
 
             return result
         }
