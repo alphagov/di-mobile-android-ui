@@ -5,64 +5,64 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.font.FontWeight
-import uk.gov.android.ui.componentsv2.images.IconParameters
 import uk.gov.android.ui.theme.adminButton
 import uk.gov.android.ui.theme.m3_disabled
 import uk.gov.android.ui.theme.m3_onDisabled
 
 sealed class ButtonType(
-    val buttonColour: @Composable () -> ButtonColors,
-    val fontWeight: FontWeight = FontWeight.Bold,
+    open val fontWeight: FontWeight = FontWeight.Bold,
 ) {
-    open class PRIMARY : ButtonType(
-        buttonColour = { primaryButtonColors() },
-    )
+    open class Primary : ButtonType()
 
-    open class SECONDARY : ButtonType(
-        buttonColour = { secondaryButtonColors() },
+    open class Secondary : ButtonType(
         fontWeight = FontWeight.Light,
     )
 
-    open class TERTIARY : ButtonType(
-        buttonColour = { tertiaryButtonColors() },
-    )
+    open class Tertiary : ButtonType()
 
-    open class QUATERNARY : ButtonType(
-        buttonColour = { quaternaryButtonColors() },
+    open class Quaternary : ButtonType(
         fontWeight = FontWeight.Light,
     )
 
-    open class ADMIN : ButtonType(
-        buttonColour = { adminButtonColors() },
-    )
+    open class Admin : ButtonType()
 
-    open class ERROR : ButtonType(
-        buttonColour = { errorButtonColors() },
-    )
+    open class Error : ButtonType()
 
-    open class CUSTOM(
-        contentColor: Color,
-        containerColor: Color,
+    open class Custom(
+        val contentColor: Color,
+        val containerColor: Color,
         fontWeight: FontWeight = FontWeight.Light,
     ) : ButtonType(
-        buttonColour = {
-            customButtonColors(
-                contentColor = contentColor,
-                containerColor = containerColor,
-            )
-        },
         fontWeight = fontWeight,
     )
 
-    data class ICON(
-        val parentButtonType: ButtonType,
-        val iconParameters: IconParameters,
+    data class Icon(
+        val buttonColors: ButtonColors,
+        val iconImage: Painter,
+        val contentDescription: String,
+        override val fontWeight: FontWeight = FontWeight.Light,
         val isIconTrailing: Boolean = true,
     ) : ButtonType(
-        buttonColour = parentButtonType.buttonColour,
-        fontWeight = parentButtonType.fontWeight,
+        fontWeight = fontWeight,
     )
+}
+
+@Composable
+internal fun ButtonType.buttonColors() = when (this) {
+    is ButtonType.Admin -> adminButtonColors()
+    is ButtonType.Custom -> customButtonColors(
+        containerColor = containerColor,
+        contentColor = contentColor,
+    )
+
+    is ButtonType.Error -> errorButtonColors()
+    is ButtonType.Icon -> buttonColors
+    is ButtonType.Primary -> primaryButtonColors()
+    is ButtonType.Quaternary -> quaternaryButtonColors()
+    is ButtonType.Secondary -> secondaryButtonColors()
+    is ButtonType.Tertiary -> tertiaryButtonColors()
 }
 
 @Composable

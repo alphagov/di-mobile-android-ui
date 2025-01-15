@@ -17,7 +17,7 @@ object ModifierExtensions {
         )
         .then(modifier ?: Modifier)
 
-    fun Modifier.customTilePadding(item: Int? = null) = if (item != null) {
+    fun Modifier.customTilePadding(apply: Boolean) = if (apply) {
         fillMaxWidth()
             .padding(top = xsmallPadding)
     } else {

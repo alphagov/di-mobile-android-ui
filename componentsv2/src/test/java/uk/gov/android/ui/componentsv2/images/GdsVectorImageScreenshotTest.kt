@@ -1,6 +1,8 @@
 package uk.gov.android.ui.componentsv2.images
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import com.android.resources.NightMode
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
@@ -12,7 +14,14 @@ class GdsVectorImageScreenshotTest(
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {
-        GdsVectorImage(parameters.first)
+        val parameters = parameters.first
+        GdsVectorImage(
+            image = painterResource(parameters.image),
+            modifier = parameters.modifier,
+            color = parameters.color,
+            contentDescription = stringResource(parameters.contentDescription),
+            scale = parameters.scale,
+        )
     }
 
     companion object {
