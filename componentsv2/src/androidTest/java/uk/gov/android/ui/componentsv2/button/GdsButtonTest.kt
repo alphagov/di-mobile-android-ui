@@ -1,6 +1,7 @@
 package uk.gov.android.ui.componentsv2.button
 
 import android.content.Context
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -137,7 +138,11 @@ class GdsButtonTest {
 
     private fun setupContent(parameters: ButtonParameters) {
         composeTestRule.setContent {
-            GdsButton(parameters) { onClick++ }
+            GdsButton(
+                text = stringResource(parameters.text),
+                buttonType = parameters.buttonType.toButtonType(),
+                onClick = { onClick++ },
+            )
         }
     }
 }

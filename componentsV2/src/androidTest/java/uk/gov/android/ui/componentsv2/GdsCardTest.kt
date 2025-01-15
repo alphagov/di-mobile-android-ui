@@ -1,6 +1,8 @@
 package uk.gov.android.ui.componentsv2
 
 import android.content.Context
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.test.assertCountEquals
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.assertIsNotDisplayed
@@ -232,9 +234,18 @@ class GdsCardTest {
 
     private fun setupContent(parameters: GdsCardParameters) {
         composeTestRule.setContent {
-            GdsCard(parameters) {
-                onClick++
-            }
+            GdsCard(
+                title = stringResource(parameters.title),
+                onClick = { onClick++ },
+                body = parameters.body?.let { stringResource(it) },
+                image = parameters.image?.let { painterResource(it) },
+                contentDescription = parameters.contentDescription?.let { stringResource(it) },
+                showDismissIcon = parameters.showDismissIcon,
+                caption = parameters.caption?.let { stringResource(it) },
+                buttonText = parameters.buttonText?.let { stringResource(it) },
+                displayPrimary = parameters.displayPrimary,
+                showSecondaryIcon = parameters.showSecondaryIcon,
+            )
         }
     }
 }

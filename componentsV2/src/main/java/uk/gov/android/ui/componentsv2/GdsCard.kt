@@ -52,7 +52,7 @@ fun GdsCard(
     caption: String? = null,
     body: String? = null,
     displayPrimary: Boolean = true,
-    text: String? = null,
+    buttonText: String? = null,
     showSecondaryIcon: Boolean,
 ) {
     Card(
@@ -105,7 +105,7 @@ fun GdsCard(
                 }
             }
             Buttons(
-                text = text,
+                text = buttonText,
                 displayPrimary = displayPrimary,
                 showSecondaryIcon = showSecondaryIcon,
                 onClick = onClick,
@@ -218,7 +218,7 @@ internal data class GdsCardParameters(
     @StringRes
     val body: Int? = null,
     val displayPrimary: Boolean = true,
-    val text: Int? = null,
+    val buttonText: Int? = null,
     val showSecondaryIcon: Boolean = false,
 )
 
@@ -231,13 +231,13 @@ internal class GdsCardPreviewParameters : PreviewParameterProvider<GdsCardParame
             caption = R.string.caption,
             title = R.string.title,
             body = R.string.body,
-            text = R.string.primary_button,
+            buttonText = R.string.primary_button,
         ),
         GdsCardParameters(
             image = R.drawable.ic_tile_image,
             title = R.string.title,
             displayPrimary = false,
-            text = R.string.secondary_button,
+            buttonText = R.string.secondary_button,
             showSecondaryIcon = true,
         ),
         GdsCardParameters(
@@ -245,13 +245,13 @@ internal class GdsCardPreviewParameters : PreviewParameterProvider<GdsCardParame
             title = R.string.title,
             body = R.string.body,
             displayPrimary = true,
-            text = R.string.primary_button,
+            buttonText = R.string.primary_button,
         ),
         GdsCardParameters(
             caption = R.string.caption,
             title = R.string.title,
             displayPrimary = true,
-            text = R.string.primary_button,
+            buttonText = R.string.primary_button,
         ),
         GdsCardParameters(
             caption = R.string.caption,
@@ -263,7 +263,7 @@ internal class GdsCardPreviewParameters : PreviewParameterProvider<GdsCardParame
             title = R.string.title,
             body = R.string.body,
             displayPrimary = true,
-            text = R.string.primary_button,
+            buttonText = R.string.primary_button,
         ),
     )
 }
@@ -284,7 +284,7 @@ internal fun GdsCardPreview(
             caption = parameters.caption?.let { stringResource(it) },
             body = parameters.body?.let { stringResource(it) },
             displayPrimary = parameters.displayPrimary,
-            text = parameters.text?.let { stringResource(it) },
+            buttonText = parameters.buttonText?.let { stringResource(it) },
             showSecondaryIcon = parameters.showSecondaryIcon,
         )
     }

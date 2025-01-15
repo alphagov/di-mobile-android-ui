@@ -24,7 +24,7 @@ internal class GdsContentTileScreenshotTest(
             caption = parameters.caption?.let { stringResource(it) },
             body = parameters.body?.let { stringResource(it) },
             displayPrimary = parameters.displayPrimary,
-            text = parameters.text?.let { stringResource(it) },
+            buttonText = parameters.buttonText?.let { stringResource(it) },
             showSecondaryIcon = parameters.showSecondaryIcon,
         )
     }
