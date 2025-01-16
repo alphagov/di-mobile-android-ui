@@ -6,6 +6,7 @@ androidx-test-orchestrator = "1.5.1" # https://developer.android.com/jetpack/and
 appcompat = "1.7.0" # https://developer.android.com/jetpack/androidx/releases/appcompat
 archcore-testing = "2.2.0"
 compose = "2024.12.01"
+compose-lint-checks = "1.4.2"
 constraintlayout-compose = "1.1.0"
 core-ktx = "1.13.1"
 dagger = "2.55" # https://github.com/google/dagger/releases
@@ -41,6 +42,7 @@ androidx-test-orchestrator = { module = "androidx.test:orchestrator", version.re
 
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 arch-core = { group = "androidx.arch.core", name = "core-testing", version.ref = "archcore-testing" }
+com-slack-compose-lint-checks = { module = "com.slack.lint.compose:compose-lint-checks", version.ref = "compose-lint-checks" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 detekt-gradle = { module = "io.gitlab.arturbosch.detekt:detekt-gradle-plugin", version.ref = "detekt-gradle" }
 hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "dagger" }
