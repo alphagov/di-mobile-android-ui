@@ -1,8 +1,9 @@
 package uk.gov.android.ui.componentsv2.images
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import com.android.resources.NightMode
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
@@ -16,7 +17,7 @@ internal class GdsIconScreenshotTest(
     override val generateComposeLayout: @Composable () -> Unit = {
         val parameters = parameters.first
         GdsIcon(
-            image = painterResource(parameters.image),
+            image = ImageVector.vectorResource(parameters.image),
             modifier = parameters.modifier,
             color = parameters.color,
             backgroundColor = parameters.backgroundColor,

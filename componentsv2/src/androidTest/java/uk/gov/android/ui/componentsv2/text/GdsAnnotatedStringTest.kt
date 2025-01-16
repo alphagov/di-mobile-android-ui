@@ -1,8 +1,9 @@
 package uk.gov.android.ui.componentsv2.text
 
 import android.content.Context
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -26,7 +27,7 @@ class GdsAnnotatedStringTest {
             GdsAnnotatedString(
                 text = stringResource(parameters.text),
                 fontWeight = parameters.fontWeight,
-                icon = painterResource(parameters.icon),
+                icon = ImageVector.vectorResource(parameters.icon),
                 iconContentDescription = stringResource(parameters.iconContentDescription),
                 iconId = stringResource(parameters.iconId),
                 iconColor = parameters.iconColor,

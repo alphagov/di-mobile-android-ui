@@ -4,49 +4,54 @@ import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme.colorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import uk.gov.android.ui.theme.adminButton
 import uk.gov.android.ui.theme.m3_disabled
 import uk.gov.android.ui.theme.m3_onDisabled
 
-sealed class ButtonType(
-    open val fontWeight: FontWeight = FontWeight.Bold,
-) {
-    open class Primary : ButtonType()
+@Immutable
+sealed class ButtonType {
+    data object Primary : ButtonType()
 
-    open class Secondary : ButtonType(
-        fontWeight = FontWeight.Light,
-    )
+    data object Secondary : ButtonType()
 
-    open class Tertiary : ButtonType()
+    data object Tertiary : ButtonType()
 
-    open class Quaternary : ButtonType(
-        fontWeight = FontWeight.Light,
-    )
+    data object Quaternary : ButtonType()
 
-    open class Admin : ButtonType()
+    data object Admin : ButtonType()
 
-    open class Error : ButtonType()
+    data object Error : ButtonType()
 
-    open class Custom(
+    data class Custom(
         val contentColor: Color,
         val containerColor: Color,
-        fontWeight: FontWeight = FontWeight.Light,
-    ) : ButtonType(
-        fontWeight = fontWeight,
-    )
+        val fontWeight: FontWeight = FontWeight.Light,
+    ) : ButtonType()
 
     data class Icon(
         val buttonColors: ButtonColors,
-        val iconImage: Painter,
+        val iconImage: ImageVector,
         val contentDescription: String,
-        override val fontWeight: FontWeight = FontWeight.Light,
+        val fontWeight: FontWeight = FontWeight.Light,
         val isIconTrailing: Boolean = true,
-    ) : ButtonType(
-        fontWeight = fontWeight,
-    )
+    ) : ButtonType()
+}
+
+internal fun ButtonType.fontWeight() = when (this) {
+    ButtonType.Admin,
+    ButtonType.Error,
+    ButtonType.Primary,
+    ButtonType.Tertiary,
+    -> FontWeight.Bold
+    ButtonType.Quaternary,
+    ButtonType.Secondary,
+    -> FontWeight.Light
+    is ButtonType.Custom -> fontWeight
+    is ButtonType.Icon -> fontWeight
 }
 
 @Composable

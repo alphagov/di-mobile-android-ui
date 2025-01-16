@@ -9,11 +9,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
@@ -23,7 +23,7 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 
 @Composable
 fun GdsIcon(
-    image: Painter,
+    image: ImageVector,
     contentDescription: String,
     modifier: Modifier = Modifier,
     color: Color = Color.Unspecified,
@@ -40,7 +40,7 @@ fun GdsIcon(
             .testTag(image.toString()),
     )
     Icon(
-        painter = image,
+        imageVector = image,
         contentDescription = contentDescription,
         tint = setColor,
         modifier = if (size != null) {
@@ -96,7 +96,7 @@ internal fun IconPreview(
 ) {
     GdsTheme {
         GdsIcon(
-            image = painterResource(parameters.image),
+            image = ImageVector.vectorResource(parameters.image),
             modifier = parameters.modifier,
             color = parameters.color,
             backgroundColor = parameters.backgroundColor,

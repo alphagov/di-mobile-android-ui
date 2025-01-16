@@ -11,8 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -86,7 +87,7 @@ private fun Content(
         } else {
             Text(
                 text = text,
-                fontWeight = buttonType.fontWeight,
+                fontWeight = buttonType.fontWeight(),
                 style = Typography.labelLarge,
                 textAlign = TextAlign.Center,
             )
@@ -116,20 +117,20 @@ internal enum class ButtonTypePreview {
 
 @Composable
 internal fun ButtonTypePreview.toButtonType(): ButtonType = when (this) {
-    ButtonTypePreview.Primary -> ButtonType.Primary()
-    ButtonTypePreview.Secondary -> ButtonType.Secondary()
-    ButtonTypePreview.Tertiary -> ButtonType.Tertiary()
-    ButtonTypePreview.Quaternary -> ButtonType.Quaternary()
-    ButtonTypePreview.Admin -> ButtonType.Admin()
-    ButtonTypePreview.Error -> ButtonType.Error()
+    ButtonTypePreview.Primary -> ButtonType.Primary
+    ButtonTypePreview.Secondary -> ButtonType.Secondary
+    ButtonTypePreview.Tertiary -> ButtonType.Tertiary
+    ButtonTypePreview.Quaternary -> ButtonType.Quaternary
+    ButtonTypePreview.Admin -> ButtonType.Admin
+    ButtonTypePreview.Error -> ButtonType.Error
     ButtonTypePreview.Custom -> ButtonType.Custom(
         contentColor = Color.Red,
         containerColor = Color.Cyan,
     )
 
     ButtonTypePreview.Icon -> ButtonType.Icon(
-        buttonColors = ButtonType.Primary().buttonColors(),
-        iconImage = painterResource(R.drawable.ic_external_site),
+        buttonColors = ButtonType.Primary.buttonColors(),
+        iconImage = ImageVector.vectorResource(R.drawable.ic_external_site),
         fontWeight = FontWeight.Bold,
         contentDescription = stringResource(R.string.icon_content_desc),
     )

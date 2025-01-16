@@ -1,8 +1,9 @@
 package uk.gov.android.ui.componentsv2.images
 
 import android.content.Context
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -23,7 +24,7 @@ class GdsVectorImageTest {
     fun testImage() {
         composeTestRule.setContent {
             GdsVectorImage(
-                image = painterResource(parameters.image),
+                image = ImageVector.vectorResource(parameters.image),
                 modifier = parameters.modifier,
                 color = parameters.color,
                 contentDescription = stringResource(parameters.contentDescription),

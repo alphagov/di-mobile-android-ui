@@ -2,6 +2,7 @@ package uk.gov.android.ui.componentsv2
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,16 +22,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import uk.gov.android.ui.componentsv2.button.ButtonType
 import uk.gov.android.ui.componentsv2.button.GdsButton
 import uk.gov.android.ui.componentsv2.button.customButtonColors
-import uk.gov.android.ui.componentsv2.images.GdsVectorImage
 import uk.gov.android.ui.componentsv2.utils.ModifierExtensions.customTilePadding
 import uk.gov.android.ui.componentsv2.utils.ModifierExtensions.elevatedCardModifier
 import uk.gov.android.ui.theme.ROW_DISTRIBUTION
@@ -127,10 +129,11 @@ private fun TileImage(
         Box(
             modifier = modifier,
         ) {
-            GdsVectorImage(
-                image = image,
+            Image(
+                painter = image,
                 contentDescription = contentDescription ?: defaultContentDescription,
-                scale = ContentScale.FillWidth,
+                contentScale = ContentScale.FillWidth,
+                modifier = Modifier.fillMaxWidth(),
             )
             Column(
                 horizontalAlignment = Alignment.End,
@@ -170,7 +173,7 @@ private fun Buttons(
         if (displayPrimary) {
             GdsButton(
                 text = text,
-                buttonType = ButtonType.Primary(),
+                buttonType = ButtonType.Primary,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(
@@ -196,7 +199,7 @@ private fun Buttons(
                             contentColor = MaterialTheme.colorScheme.primary,
                             containerColor = MaterialTheme.colorScheme.inverseOnSurface,
                         ),
-                        iconImage = painterResource(R.drawable.ic_external_site),
+                        iconImage = ImageVector.vectorResource(R.drawable.ic_external_site),
                         contentDescription = stringResource(R.string.icon_content_desc),
                     ),
                     modifier = Modifier
