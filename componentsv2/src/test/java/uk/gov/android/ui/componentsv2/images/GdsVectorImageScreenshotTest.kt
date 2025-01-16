@@ -9,7 +9,7 @@ import org.junit.runners.Parameterized
 import uk.gov.android.ui.componentsv2.BaseScreenshotTest
 
 @RunWith(Parameterized::class)
-class GdsVectorImageScreenshotTest(
+internal class GdsVectorImageScreenshotTest(
     private val parameters: Pair<VectorImageParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
