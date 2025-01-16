@@ -125,7 +125,7 @@ private fun TileImage(
     val defaultContentDescription = stringResource(R.string.vector_image_content_description)
     image?.let {
         Box(
-            modifier = modifier
+            modifier = modifier,
         ) {
             GdsVectorImage(
                 image = image,
