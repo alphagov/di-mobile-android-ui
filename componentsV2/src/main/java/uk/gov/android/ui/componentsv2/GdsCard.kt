@@ -46,6 +46,7 @@ import uk.gov.android.ui.theme.xsmallPadding
 fun GdsCard(
     title: String,
     onClick: () -> Unit,
+    modifier: Modifier = Modifier,
     image: Painter? = null,
     contentDescription: String? = null,
     showDismissIcon: Boolean = false,
@@ -53,7 +54,7 @@ fun GdsCard(
     body: String? = null,
     displayPrimary: Boolean = true,
     buttonText: String? = null,
-    showSecondaryIcon: Boolean,
+    showSecondaryIcon: Boolean = false,
 ) {
     Card(
         colors = CardDefaults.cardColors(
@@ -61,7 +62,7 @@ fun GdsCard(
             contentColor = MaterialTheme.colorScheme.onBackground,
         ),
         shape = RoundedCornerShape(tileCornerRadius),
-        modifier = Modifier.elevatedCardModifier(),
+        modifier = modifier.elevatedCardModifier(),
     ) {
         TileImage(
             image = image,
@@ -116,13 +117,16 @@ fun GdsCard(
 
 @Composable
 private fun TileImage(
+    showDismissIcon: Boolean,
+    modifier: Modifier = Modifier,
     image: Painter? = null,
     contentDescription: String? = null,
-    showDismissIcon: Boolean,
 ) {
     val defaultContentDescription = stringResource(R.string.vector_image_content_description)
     image?.let {
-        Box {
+        Box(
+            modifier = modifier
+        ) {
             GdsVectorImage(
                 image = image,
                 contentDescription = contentDescription ?: defaultContentDescription,

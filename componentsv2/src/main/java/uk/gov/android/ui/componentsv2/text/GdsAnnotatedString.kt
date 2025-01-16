@@ -78,7 +78,7 @@ fun GdsAnnotatedString(
     )
 }
 
-data class AnnotatedStringParameters(
+internal data class AnnotatedStringParameters(
     val text: Int,
     val fontWeight: FontWeight,
     val icon: Int,
@@ -89,7 +89,7 @@ data class AnnotatedStringParameters(
     val isIconTrailing: Boolean = true,
 )
 
-class AnnotatedStringPreviewParameters : PreviewParameterProvider<AnnotatedStringParameters> {
+internal class AnnotatedStringPreviewParameters : PreviewParameterProvider<AnnotatedStringParameters> {
     override val values: Sequence<AnnotatedStringParameters> = sequenceOf(
         AnnotatedStringParameters(
             text = R.string.annotated_string,
@@ -114,7 +114,7 @@ class AnnotatedStringPreviewParameters : PreviewParameterProvider<AnnotatedStrin
 
 @Composable
 @PreviewLightDark
-fun AnnotatedStringPreview(
+internal fun AnnotatedStringPreview(
     @PreviewParameter(AnnotatedStringPreviewParameters::class)
     parameters: AnnotatedStringParameters,
 ) {

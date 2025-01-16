@@ -24,10 +24,10 @@ import uk.gov.android.ui.theme.m3.GdsTheme
 @Composable
 fun GdsIcon(
     image: Painter,
+    contentDescription: String,
     modifier: Modifier = Modifier,
     color: Color = Color.Unspecified,
     backgroundColor: Color = Color.Unspecified,
-    contentDescription: String,
     size: Dp? = null,
 ) {
     val setColor = color.ifSpecified(default = MaterialTheme.colorScheme.onBackground)

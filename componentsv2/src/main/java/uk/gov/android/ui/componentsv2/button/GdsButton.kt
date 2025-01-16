@@ -32,8 +32,8 @@ fun GdsButton(
     buttonType: ButtonType,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
-    contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
     contentModifier: Modifier = modifier,
+    contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
     enabled: Boolean = true,
 ) {
     Button(
@@ -65,8 +65,8 @@ private fun Content(
     text: String,
     buttonType: ButtonType,
     modifier: Modifier = Modifier,
-    contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
     contentModifier: Modifier = modifier,
+    contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
 ) {
     Row(
         modifier = contentModifier,

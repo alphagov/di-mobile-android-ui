@@ -22,9 +22,9 @@ import uk.gov.android.ui.theme.GdsTheme
 @Composable
 fun GdsVectorImage(
     image: Painter,
+    contentDescription: String,
     modifier: Modifier = Modifier,
     color: Color = Color.Unspecified,
-    contentDescription: String,
     scale: ContentScale = ContentScale.Fit,
 ) {
     Image(
@@ -38,7 +38,7 @@ fun GdsVectorImage(
     )
 }
 
-data class VectorImageParameters(
+internal data class VectorImageParameters(
     @DrawableRes
     val image: Int,
     val color: Color = Color.Unspecified,
@@ -54,7 +54,7 @@ private fun Color.toTint(): ColorFilter? = if (this != Color.Unspecified) {
     null
 }
 
-class VectorImageProvider : PreviewParameterProvider<VectorImageParameters> {
+internal class VectorImageProvider : PreviewParameterProvider<VectorImageParameters> {
     override val values: Sequence<VectorImageParameters> = sequenceOf(
         VectorImageParameters(
             contentDescription = R.string.vector_image_content_description,
@@ -70,7 +70,7 @@ class VectorImageProvider : PreviewParameterProvider<VectorImageParameters> {
 
 @Composable
 @PreviewLightDark
-fun VectorImagePreview(
+internal fun VectorImagePreview(
     @PreviewParameter(VectorImageProvider::class)
     parameters: VectorImageParameters,
 ) {
