@@ -45,7 +45,7 @@ import uk.gov.android.ui.theme.tileCornerRadius
 import uk.gov.android.ui.theme.xsmallPadding
 
 @Composable
-fun GdsContentTile(
+fun GdsCard(
     title: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
@@ -212,7 +212,7 @@ private fun Buttons(
     }
 }
 
-internal data class GdsContentTilePreviewParameters(
+internal data class GdsCardPreviewParameters(
     @DrawableRes
     val image: Int? = null,
     @StringRes
@@ -229,9 +229,9 @@ internal data class GdsContentTilePreviewParameters(
     val showSecondaryIcon: Boolean = false,
 )
 
-internal class GdsContentTilePreviewParametersProvider : PreviewParameterProvider<GdsContentTilePreviewParameters> {
-    override val values: Sequence<GdsContentTilePreviewParameters> = sequenceOf(
-        GdsContentTilePreviewParameters(
+internal class GdsCardPreviewParametersProvider : PreviewParameterProvider<GdsCardPreviewParameters> {
+    override val values: Sequence<GdsCardPreviewParameters> = sequenceOf(
+        GdsCardPreviewParameters(
             image = R.drawable.ic_tile_image,
             contentDescription = R.string.vector_image_content_description,
             showDismissIcon = true,
@@ -240,31 +240,31 @@ internal class GdsContentTilePreviewParametersProvider : PreviewParameterProvide
             body = R.string.body,
             buttonText = R.string.primary_button,
         ),
-        GdsContentTilePreviewParameters(
+        GdsCardPreviewParameters(
             image = R.drawable.ic_tile_image,
             title = R.string.title,
             displayPrimary = false,
             buttonText = R.string.secondary_button,
             showSecondaryIcon = true,
         ),
-        GdsContentTilePreviewParameters(
+        GdsCardPreviewParameters(
             caption = R.string.caption,
             title = R.string.title,
             body = R.string.body,
             displayPrimary = true,
             buttonText = R.string.primary_button,
         ),
-        GdsContentTilePreviewParameters(
+        GdsCardPreviewParameters(
             caption = R.string.caption,
             title = R.string.title,
             displayPrimary = true,
             buttonText = R.string.primary_button,
         ),
-        GdsContentTilePreviewParameters(
+        GdsCardPreviewParameters(
             caption = R.string.caption,
             title = R.string.title,
         ),
-        GdsContentTilePreviewParameters(
+        GdsCardPreviewParameters(
             showDismissIcon = true,
             caption = R.string.caption,
             title = R.string.title,
@@ -277,12 +277,12 @@ internal class GdsContentTilePreviewParametersProvider : PreviewParameterProvide
 
 @Composable
 @PreviewLightDark
-internal fun GdsContentTilePreview(
-    @PreviewParameter(GdsContentTilePreviewParametersProvider::class)
-    parameters: GdsContentTilePreviewParameters,
+internal fun GdsCardPreview(
+    @PreviewParameter(GdsCardPreviewParametersProvider::class)
+    parameters: GdsCardPreviewParameters,
 ) {
     GdsTheme {
-        GdsContentTile(
+        GdsCard(
             title = stringResource(parameters.title),
             onClick = {},
             image = parameters.image?.let { painterResource(it) },
