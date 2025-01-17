@@ -7,15 +7,14 @@ import com.android.resources.NightMode
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 
-// TODO Rename after screenshots compared
 @RunWith(Parameterized::class)
 internal class GdsContentTileScreenshotTest(
-    private val parameters: Pair<GdsCardPreviewParameters, NightMode>,
+    private val parameters: Pair<GdsContentTilePreviewParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {
         val parameters = parameters.first
-        GdsCard(
+        GdsContentTile(
             title = stringResource(parameters.title),
             onClick = {},
             image = parameters.image?.let { painterResource(it) },
@@ -31,12 +30,11 @@ internal class GdsContentTileScreenshotTest(
 
     companion object {
         @JvmStatic
-        // TODO Rename after screenshot comparison
         @Parameterized.Parameters(name = "{index}GdsContentTileV2")
-        fun values(): List<Pair<GdsCardPreviewParameters, NightMode>> {
-            val result: MutableList<Pair<GdsCardPreviewParameters, NightMode>> = mutableListOf()
+        fun values(): List<Pair<GdsContentTilePreviewParameters, NightMode>> {
+            val result: MutableList<Pair<GdsContentTilePreviewParameters, NightMode>> = mutableListOf()
 
-            GdsCardPreviewParametersProvider().values.forEach(applyNightMode(result))
+            GdsContentTilePreviewParametersProvider().values.forEach(applyNightMode(result))
 
             return result
         }
