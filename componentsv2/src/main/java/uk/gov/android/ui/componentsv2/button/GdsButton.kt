@@ -1,5 +1,6 @@
 package uk.gov.android.ui.componentsv2.button
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -8,16 +9,18 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import uk.gov.android.ui.componentsv2.R
-import uk.gov.android.ui.componentsv2.images.IconParameters
-import uk.gov.android.ui.componentsv2.text.AnnotatedStringParameters
 import uk.gov.android.ui.componentsv2.text.GdsAnnotatedString
 import uk.gov.android.ui.theme.buttonContentHorizontal
 import uk.gov.android.ui.theme.buttonContentVertical
@@ -26,60 +29,65 @@ import uk.gov.android.ui.theme.m3.Typography
 
 @Composable
 fun GdsButton(
-    parameters: ButtonParameters,
+    text: String,
+    buttonType: ButtonType,
     onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    contentModifier: Modifier = modifier,
+    contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
+    enabled: Boolean = true,
 ) {
-    with(parameters) {
-        Button(
-            colors = buttonType.buttonColour(),
-            modifier = modifier.then(
-                Modifier
-                    .minimumInteractiveComponentSize()
-                    .semantics(mergeDescendants = true) { },
-            ),
-            onClick = onClick,
-            shape = RectangleShape,
-            enabled = isEnabled,
-            contentPadding = getContentPadding(),
-        ) {
-            Content()
-        }
+    Button(
+        colors = buttonType.buttonColors(),
+        modifier = modifier.then(
+            Modifier
+                .minimumInteractiveComponentSize()
+                .semantics(mergeDescendants = true) { },
+        ),
+        onClick = onClick,
+        shape = RectangleShape,
+        enabled = enabled,
+        contentPadding = getContentPadding(
+            contentPosition = contentPosition,
+        ),
+    ) {
+        Content(
+            text = text,
+            buttonType = buttonType,
+            modifier = modifier,
+            contentPosition = contentPosition,
+            contentModifier = contentModifier,
+        )
     }
 }
 
-data class ButtonParameters(
-    val text: Int,
-    val buttonType: ButtonType,
-    val modifier: Modifier = Modifier,
-    val contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
-    val contentModifier: Modifier = modifier,
-    val isEnabled: Boolean = true,
-)
-
 @Composable
-private fun ButtonParameters.Content() {
+private fun Content(
+    text: String,
+    buttonType: ButtonType,
+    modifier: Modifier = Modifier,
+    contentModifier: Modifier = modifier,
+    contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
+) {
     Row(
         modifier = contentModifier,
         horizontalArrangement = contentPosition,
     ) {
-        if (buttonType is ButtonType.ICON) {
-            val iconParameters = buttonType.iconParameters
-            val buttonColors = buttonType.parentButtonType.buttonColour.invoke()
+        if (buttonType is ButtonType.Icon) {
+            val buttonColors = buttonType.buttonColors
             GdsAnnotatedString(
-                parameters = AnnotatedStringParameters(
-                    text = text,
-                    fontWeight = buttonType.fontWeight,
-                    icon = iconParameters.image,
-                    iconContentDescription = iconParameters.contentDescription,
-                    isIconTrailing = buttonType.isIconTrailing,
-                    iconColor = buttonColors.contentColor,
-                    iconBackgroundColor = buttonColors.containerColor,
-                ),
+                text = text,
+                fontWeight = buttonType.fontWeight,
+                icon = buttonType.iconImage,
+                iconContentDescription = buttonType.contentDescription,
+                isIconTrailing = buttonType.isIconTrailing,
+                iconColor = buttonColors.contentColor,
+                iconBackgroundColor = buttonColors.containerColor,
             )
         } else {
             Text(
-                text = stringResource(text),
-                fontWeight = buttonType.fontWeight,
+                text = text,
+                fontWeight = buttonType.fontWeight(),
                 style = Typography.labelLarge,
                 textAlign = TextAlign.Center,
             )
@@ -87,7 +95,9 @@ private fun ButtonParameters.Content() {
     }
 }
 
-private fun ButtonParameters.getContentPadding() =
+private fun getContentPadding(
+    contentPosition: Arrangement.Horizontal,
+) =
     if (contentPosition == Arrangement.Start) {
         PaddingValues(
             end = buttonContentHorizontal,
@@ -101,52 +111,89 @@ private fun ButtonParameters.getContentPadding() =
         )
     }
 
-class ButtonParameterPreviewProvider : PreviewParameterProvider<ButtonParameters> {
+internal enum class ButtonTypePreview {
+    Primary, Secondary, Tertiary, Quaternary, Admin, Error, Custom, Icon
+}
+
+@Composable
+internal fun ButtonTypePreview.toButtonType(): ButtonType = when (this) {
+    ButtonTypePreview.Primary -> ButtonType.Primary
+    ButtonTypePreview.Secondary -> ButtonType.Secondary
+    ButtonTypePreview.Tertiary -> ButtonType.Tertiary
+    ButtonTypePreview.Quaternary -> ButtonType.Quaternary
+    ButtonTypePreview.Admin -> ButtonType.Admin
+    ButtonTypePreview.Error -> ButtonType.Error
+    ButtonTypePreview.Custom -> ButtonType.Custom(
+        contentColor = Color.Red,
+        containerColor = Color.Cyan,
+    )
+
+    ButtonTypePreview.Icon -> ButtonType.Icon(
+        buttonColors = ButtonType.Primary.buttonColors(),
+        iconImage = ImageVector.vectorResource(R.drawable.ic_external_site),
+        fontWeight = FontWeight.Bold,
+        contentDescription = stringResource(R.string.icon_content_desc),
+    )
+}
+
+internal data class ButtonParameters(
+    @StringRes
+    val text: Int,
+    val buttonType: ButtonTypePreview,
+    val modifier: Modifier = Modifier,
+    val contentPosition: Arrangement.Horizontal = Arrangement.Absolute.Center,
+    val contentModifier: Modifier = modifier,
+    val enabled: Boolean = true,
+)
+
+internal class ButtonParameterPreviewProvider : PreviewParameterProvider<ButtonParameters> {
     override val values: Sequence<ButtonParameters> = sequenceOf(
         ButtonParameters(
             text = R.string.primary_button,
-            buttonType = ButtonType.PRIMARY(),
+            buttonType = ButtonTypePreview.Primary,
         ),
         ButtonParameters(
             R.string.secondary_button,
-            ButtonType.SECONDARY(),
+            ButtonTypePreview.Secondary,
         ),
         ButtonParameters(
             R.string.tertiary_button,
-            ButtonType.TERTIARY(),
+            ButtonTypePreview.Tertiary,
         ),
         ButtonParameters(
             R.string.quaternary_button,
-            ButtonType.QUATERNARY(),
+            ButtonTypePreview.Quaternary,
         ),
         ButtonParameters(
             R.string.admin_button,
-            ButtonType.ADMIN(),
+            ButtonTypePreview.Admin,
         ),
         ButtonParameters(
             R.string.error_button,
-            ButtonType.ERROR(),
+            ButtonTypePreview.Error,
         ),
         ButtonParameters(
             R.string.text_button,
-            ButtonType.ICON(
-                ButtonType.PRIMARY(),
-                IconParameters(
-                    R.drawable.ic_external_site,
-                    contentDescription = R.string.icon_content_desc,
-                ),
-            ),
+            ButtonTypePreview.Icon,
         ),
     )
 }
 
 @Composable
 @PreviewLightDark
-fun ButtonPreview(
+internal fun ButtonPreview(
     @PreviewParameter(ButtonParameterPreviewProvider::class)
     parameters: ButtonParameters,
 ) {
     GdsTheme {
-        GdsButton(parameters) { }
+        GdsButton(
+            text = stringResource(parameters.text),
+            buttonType = parameters.buttonType.toButtonType(),
+            modifier = parameters.modifier,
+            contentPosition = parameters.contentPosition,
+            contentModifier = parameters.contentModifier,
+            enabled = parameters.enabled,
+            onClick = {},
+        )
     }
 }

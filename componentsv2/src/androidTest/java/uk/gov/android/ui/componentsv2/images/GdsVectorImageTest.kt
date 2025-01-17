@@ -1,6 +1,9 @@
 package uk.gov.android.ui.componentsv2.images
 
 import android.content.Context
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -12,7 +15,7 @@ import uk.gov.android.ui.componentsv2.R
 class GdsVectorImageTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val resources = context.resources
-    private val parameters = VectorImageProvider().values.toList()
+    private val parameters = VectorImageProvider().values.toList()[0]
 
     @get:Rule
     val composeTestRule = createComposeRule()
@@ -20,7 +23,13 @@ class GdsVectorImageTest {
     @Test
     fun testImage() {
         composeTestRule.setContent {
-            GdsVectorImage(parameters[0])
+            GdsVectorImage(
+                image = ImageVector.vectorResource(parameters.image),
+                modifier = parameters.modifier,
+                color = parameters.color,
+                contentDescription = stringResource(parameters.contentDescription),
+                scale = parameters.scale,
+            )
         }
         composeTestRule.onNodeWithContentDescription(
             resources.getString(R.string.vector_image_content_description),
@@ -30,7 +39,7 @@ class GdsVectorImageTest {
     @Test
     fun testPreview() {
         composeTestRule.setContent {
-            VectorImagePreview(parameters[0])
+            VectorImagePreview(parameters)
         }
         composeTestRule.onNodeWithContentDescription(
             resources.getString(R.string.vector_image_content_description),

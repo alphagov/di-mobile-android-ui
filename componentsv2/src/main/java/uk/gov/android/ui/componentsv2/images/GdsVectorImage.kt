@@ -5,13 +5,13 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
@@ -20,22 +20,24 @@ import uk.gov.android.ui.theme.GdsTheme
 
 @Composable
 fun GdsVectorImage(
-    parameters: VectorImageParameters,
+    image: ImageVector,
+    contentDescription: String,
+    modifier: Modifier = Modifier,
+    color: Color = Color.Unspecified,
+    scale: ContentScale = ContentScale.Fit,
 ) {
-    with(parameters) {
-        Image(
-            painter = key(image) { painterResource(id = image) },
-            colorFilter = this.hasSpecifiedColor(),
-            contentDescription = stringResource(id = contentDescription),
-            contentScale = scale,
-            modifier = Modifier
-                .fillMaxWidth()
-                .then(modifier),
-        )
-    }
+    Image(
+        imageVector = image,
+        colorFilter = color.toTint(),
+        contentDescription = contentDescription,
+        contentScale = scale,
+        modifier = Modifier
+            .fillMaxWidth()
+            .then(modifier),
+    )
 }
 
-data class VectorImageParameters(
+internal data class VectorImagePreviewParameters(
     @DrawableRes
     val image: Int,
     val color: Color = Color.Unspecified,
@@ -43,22 +45,22 @@ data class VectorImageParameters(
     val contentDescription: Int,
     val scale: ContentScale = ContentScale.Fit,
     val modifier: Modifier = Modifier,
-) {
-    fun hasSpecifiedColor(): ColorFilter? = if (color != Color.Unspecified) {
-        ColorFilter.tint(color)
-    } else {
-        null
-    }
+)
+
+private fun Color.toTint(): ColorFilter? = if (this != Color.Unspecified) {
+    ColorFilter.tint(this)
+} else {
+    null
 }
 
-class VectorImageProvider : PreviewParameterProvider<VectorImageParameters> {
-    override val values: Sequence<VectorImageParameters> = sequenceOf(
-        VectorImageParameters(
+internal class VectorImageProvider : PreviewParameterProvider<VectorImagePreviewParameters> {
+    override val values: Sequence<VectorImagePreviewParameters> = sequenceOf(
+        VectorImagePreviewParameters(
             contentDescription = R.string.vector_image_content_description,
             image = R.drawable.ic_vector_image,
             color = Color.Black,
         ),
-        VectorImageParameters(
+        VectorImagePreviewParameters(
             contentDescription = R.string.vector_image_content_description,
             image = R.drawable.ic_vector_image,
         ),
@@ -67,11 +69,17 @@ class VectorImageProvider : PreviewParameterProvider<VectorImageParameters> {
 
 @Composable
 @PreviewLightDark
-fun VectorImagePreview(
+internal fun VectorImagePreview(
     @PreviewParameter(VectorImageProvider::class)
-    parameters: VectorImageParameters,
+    parameters: VectorImagePreviewParameters,
 ) {
     GdsTheme {
-        GdsVectorImage(parameters)
+        GdsVectorImage(
+            image = ImageVector.vectorResource(parameters.image),
+            modifier = parameters.modifier,
+            color = parameters.color,
+            contentDescription = stringResource(parameters.contentDescription),
+            scale = parameters.scale,
+        )
     }
 }

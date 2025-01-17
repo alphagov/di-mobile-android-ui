@@ -1,27 +1,38 @@
 package uk.gov.android.ui.componentsv2.images
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import com.android.resources.NightMode
 import org.junit.runner.RunWith
 import org.junit.runners.Parameterized
 import uk.gov.android.ui.componentsv2.BaseScreenshotTest
 
 @RunWith(Parameterized::class)
-class GdsIconScreenshotTest(
-    private val parameters: Pair<IconParameters, NightMode>,
+internal class GdsIconScreenshotTest(
+    private val parameters: Pair<IconPreviewParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {
-        GdsIcon(parameters.first)
+        val parameters = parameters.first
+        GdsIcon(
+            image = ImageVector.vectorResource(parameters.image),
+            modifier = parameters.modifier,
+            color = parameters.color,
+            backgroundColor = parameters.backgroundColor,
+            contentDescription = stringResource(parameters.contentDescription),
+            size = parameters.size,
+        )
     }
 
     companion object {
         @JvmStatic
         @Parameterized.Parameters(name = "{index}GdsIconV2")
-        fun values(): List<Pair<IconParameters, NightMode>> {
-            val result: MutableList<Pair<IconParameters, NightMode>> = mutableListOf()
+        fun values(): List<Pair<IconPreviewParameters, NightMode>> {
+            val result: MutableList<Pair<IconPreviewParameters, NightMode>> = mutableListOf()
 
-            IconPreviewParameters().values.forEach(applyNightMode(result))
+            IconPreviewParametersProvider().values.forEach(applyNightMode(result))
 
             return result
         }

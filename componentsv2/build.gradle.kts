@@ -68,8 +68,10 @@ dependencies {
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.appcompat)
-    implementation(libs.material)
-    implementation(libs.bundles.compose)
+    implementation(libs.androidx.compose.material.icons)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.preview)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.core.ktx)
     implementation(project(":theme"))
