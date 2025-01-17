@@ -88,6 +88,7 @@ dependencies {
     testImplementation(libs.hilt.android.testing)
     testImplementation(libs.junit)
     testImplementation(libs.mockito.kotlin)
+    lintChecks(libs.com.slack.compose.lint.checks)
 }
 
 mavenPublishingConfig {
@@ -101,5 +102,11 @@ mavenPublishingConfig {
             components module with a more standardised approach.
             """.trimIndent(),
         )
+    }
+}
+
+android {
+    lint {
+        baseline = file("lint-baseline.xml")
     }
 }
