@@ -17,10 +17,10 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class GdsContentTileTest {
+class GdsCardTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val resources = context.resources
-    private val parameters = GdsContentTilePreviewParametersProvider().values.toList()
+    private val parameters = GdsCardPreviewParametersProvider().values.toList()
     private var onClick: Int = 0
 
     @get:Rule
@@ -207,7 +207,7 @@ class GdsContentTileTest {
     @Test
     fun testPreview() {
         composeTestRule.setContent {
-            GdsContentTilePreview(parameters[0])
+            GdsCardPreview(parameters[0])
         }
         composeTestRule.apply {
             onNodeWithContentDescription(
@@ -232,9 +232,9 @@ class GdsContentTileTest {
         }
     }
 
-    private fun setupContent(parameters: GdsContentTilePreviewParameters) {
+    private fun setupContent(parameters: GdsCardPreviewParameters) {
         composeTestRule.setContent {
-            GdsContentTile(
+            GdsCard(
                 title = stringResource(parameters.title),
                 onClick = { onClick++ },
                 body = parameters.body?.let { stringResource(it) },
