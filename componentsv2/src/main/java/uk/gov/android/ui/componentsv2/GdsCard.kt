@@ -212,7 +212,7 @@ private fun Buttons(
     }
 }
 
-internal data class GdsCardParameters(
+internal data class GdsCardPreviewParameters(
     @DrawableRes
     val image: Int? = null,
     @StringRes
@@ -229,9 +229,9 @@ internal data class GdsCardParameters(
     val showSecondaryIcon: Boolean = false,
 )
 
-internal class GdsCardPreviewParameters : PreviewParameterProvider<GdsCardParameters> {
-    override val values: Sequence<GdsCardParameters> = sequenceOf(
-        GdsCardParameters(
+internal class GdsCardPreviewParametersProvider : PreviewParameterProvider<GdsCardPreviewParameters> {
+    override val values: Sequence<GdsCardPreviewParameters> = sequenceOf(
+        GdsCardPreviewParameters(
             image = R.drawable.ic_tile_image,
             contentDescription = R.string.vector_image_content_description,
             showDismissIcon = true,
@@ -240,31 +240,31 @@ internal class GdsCardPreviewParameters : PreviewParameterProvider<GdsCardParame
             body = R.string.body,
             buttonText = R.string.primary_button,
         ),
-        GdsCardParameters(
+        GdsCardPreviewParameters(
             image = R.drawable.ic_tile_image,
             title = R.string.title,
             displayPrimary = false,
             buttonText = R.string.secondary_button,
             showSecondaryIcon = true,
         ),
-        GdsCardParameters(
+        GdsCardPreviewParameters(
             caption = R.string.caption,
             title = R.string.title,
             body = R.string.body,
             displayPrimary = true,
             buttonText = R.string.primary_button,
         ),
-        GdsCardParameters(
+        GdsCardPreviewParameters(
             caption = R.string.caption,
             title = R.string.title,
             displayPrimary = true,
             buttonText = R.string.primary_button,
         ),
-        GdsCardParameters(
+        GdsCardPreviewParameters(
             caption = R.string.caption,
             title = R.string.title,
         ),
-        GdsCardParameters(
+        GdsCardPreviewParameters(
             showDismissIcon = true,
             caption = R.string.caption,
             title = R.string.title,
@@ -278,8 +278,8 @@ internal class GdsCardPreviewParameters : PreviewParameterProvider<GdsCardParame
 @Composable
 @PreviewLightDark
 internal fun GdsCardPreview(
-    @PreviewParameter(GdsCardPreviewParameters::class)
-    parameters: GdsCardParameters,
+    @PreviewParameter(GdsCardPreviewParametersProvider::class)
+    parameters: GdsCardPreviewParameters,
 ) {
     GdsTheme {
         GdsCard(

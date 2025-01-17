@@ -11,7 +11,7 @@ import uk.gov.android.ui.componentsv2.BaseScreenshotTest
 
 @RunWith(Parameterized::class)
 internal class GdsVectorImageScreenshotTest(
-    private val parameters: Pair<VectorImageParameters, NightMode>,
+    private val parameters: Pair<VectorImagePreviewParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {
@@ -28,8 +28,8 @@ internal class GdsVectorImageScreenshotTest(
     companion object {
         @JvmStatic
         @Parameterized.Parameters(name = "{index}GdsVectorImageV2")
-        fun values(): List<Pair<VectorImageParameters, NightMode>> {
-            val result: MutableList<Pair<VectorImageParameters, NightMode>> = mutableListOf()
+        fun values(): List<Pair<VectorImagePreviewParameters, NightMode>> {
+            val result: MutableList<Pair<VectorImagePreviewParameters, NightMode>> = mutableListOf()
 
             VectorImageProvider().values.forEach(applyNightMode(result))
 

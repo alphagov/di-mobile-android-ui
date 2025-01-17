@@ -53,7 +53,7 @@ fun GdsIcon(
     )
 }
 
-internal data class IconParameters(
+internal data class IconPreviewParameters(
     @DrawableRes
     val image: Int,
     val color: Color = Color.Unspecified,
@@ -73,13 +73,13 @@ private fun Color.ifSpecified(
     default
 }
 
-internal class IconPreviewParameters : PreviewParameterProvider<IconParameters> {
-    override val values: Sequence<IconParameters> = sequenceOf(
-        IconParameters(
+internal class IconPreviewParametersProvider : PreviewParameterProvider<IconPreviewParameters> {
+    override val values: Sequence<IconPreviewParameters> = sequenceOf(
+        IconPreviewParameters(
             image = R.drawable.ic_external_site,
             contentDescription = R.string.icon_content_desc,
         ),
-        IconParameters(
+        IconPreviewParameters(
             image = R.drawable.ic_external_site,
             contentDescription = R.string.icon_content_desc,
             color = Color.Blue,
@@ -91,8 +91,8 @@ internal class IconPreviewParameters : PreviewParameterProvider<IconParameters> 
 @Composable
 @PreviewLightDark
 internal fun IconPreview(
-    @PreviewParameter(IconPreviewParameters::class)
-    parameters: IconParameters,
+    @PreviewParameter(IconPreviewParametersProvider::class)
+    parameters: IconPreviewParameters,
 ) {
     GdsTheme {
         GdsIcon(

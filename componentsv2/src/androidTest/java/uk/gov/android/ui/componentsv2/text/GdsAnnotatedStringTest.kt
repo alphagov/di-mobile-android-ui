@@ -16,7 +16,7 @@ import uk.gov.android.ui.componentsv2.R
 class GdsAnnotatedStringTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val resources = context.resources
-    private val parameters = AnnotatedStringPreviewParameters().values.toList()[0]
+    private val parameters = AnnotatedStringPreviewParametersProvider().values.toList()[0]
 
     @get:Rule
     val composeTestRule = createComposeRule()

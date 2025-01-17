@@ -20,7 +20,7 @@ import org.junit.Test
 class GdsCardTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val resources = context.resources
-    private val parameters = GdsCardPreviewParameters().values.toList()
+    private val parameters = GdsCardPreviewParametersProvider().values.toList()
     private var onClick: Int = 0
 
     @get:Rule
@@ -232,7 +232,7 @@ class GdsCardTest {
         }
     }
 
-    private fun setupContent(parameters: GdsCardParameters) {
+    private fun setupContent(parameters: GdsCardPreviewParameters) {
         composeTestRule.setContent {
             GdsCard(
                 title = stringResource(parameters.title),

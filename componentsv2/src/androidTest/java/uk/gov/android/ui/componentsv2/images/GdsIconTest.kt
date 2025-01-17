@@ -15,7 +15,7 @@ import uk.gov.android.ui.componentsv2.R
 class GdsIconTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
     private val resources = context.resources
-    private val parameters = IconPreviewParameters().values.toList()[0]
+    private val parameters = IconPreviewParametersProvider().values.toList()[0]
 
     @get:Rule
     val composeTestRule = createComposeRule()

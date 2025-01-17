@@ -80,7 +80,7 @@ fun GdsAnnotatedString(
     )
 }
 
-internal data class AnnotatedStringParameters(
+internal data class AnnotatedStringPreviewParameters(
     val text: Int,
     val fontWeight: FontWeight,
     val icon: Int,
@@ -91,9 +91,9 @@ internal data class AnnotatedStringParameters(
     val isIconTrailing: Boolean = true,
 )
 
-internal class AnnotatedStringPreviewParameters : PreviewParameterProvider<AnnotatedStringParameters> {
-    override val values: Sequence<AnnotatedStringParameters> = sequenceOf(
-        AnnotatedStringParameters(
+internal class AnnotatedStringPreviewParametersProvider : PreviewParameterProvider<AnnotatedStringPreviewParameters> {
+    override val values: Sequence<AnnotatedStringPreviewParameters> = sequenceOf(
+        AnnotatedStringPreviewParameters(
             text = R.string.annotated_string,
             fontWeight = FontWeight.Bold,
             icon = R.drawable.ic_external_site,
@@ -102,7 +102,7 @@ internal class AnnotatedStringPreviewParameters : PreviewParameterProvider<Annot
             iconColor = m3_theme_dark_primary,
             iconBackgroundColor = m3_theme_light_background,
         ),
-        AnnotatedStringParameters(
+        AnnotatedStringPreviewParameters(
             text = R.string.annotated_string,
             fontWeight = FontWeight.Bold,
             icon = R.drawable.ic_external_site,
@@ -117,8 +117,8 @@ internal class AnnotatedStringPreviewParameters : PreviewParameterProvider<Annot
 @Composable
 @PreviewLightDark
 internal fun AnnotatedStringPreview(
-    @PreviewParameter(AnnotatedStringPreviewParameters::class)
-    parameters: AnnotatedStringParameters,
+    @PreviewParameter(AnnotatedStringPreviewParametersProvider::class)
+    parameters: AnnotatedStringPreviewParameters,
 ) {
     GdsTheme {
         GdsAnnotatedString(

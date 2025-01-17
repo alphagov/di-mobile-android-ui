@@ -11,7 +11,7 @@ import uk.gov.android.ui.componentsv2.BaseScreenshotTest
 
 @RunWith(Parameterized::class)
 internal class GdsIconScreenshotTest(
-    private val parameters: Pair<IconParameters, NightMode>,
+    private val parameters: Pair<IconPreviewParameters, NightMode>,
 ) : BaseScreenshotTest(parameters.second) {
 
     override val generateComposeLayout: @Composable () -> Unit = {
@@ -29,10 +29,10 @@ internal class GdsIconScreenshotTest(
     companion object {
         @JvmStatic
         @Parameterized.Parameters(name = "{index}GdsIconV2")
-        fun values(): List<Pair<IconParameters, NightMode>> {
-            val result: MutableList<Pair<IconParameters, NightMode>> = mutableListOf()
+        fun values(): List<Pair<IconPreviewParameters, NightMode>> {
+            val result: MutableList<Pair<IconPreviewParameters, NightMode>> = mutableListOf()
 
-            IconPreviewParameters().values.forEach(applyNightMode(result))
+            IconPreviewParametersProvider().values.forEach(applyNightMode(result))
 
             return result
         }

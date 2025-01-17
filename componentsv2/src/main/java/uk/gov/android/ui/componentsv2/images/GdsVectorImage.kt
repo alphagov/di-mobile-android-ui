@@ -37,7 +37,7 @@ fun GdsVectorImage(
     )
 }
 
-internal data class VectorImageParameters(
+internal data class VectorImagePreviewParameters(
     @DrawableRes
     val image: Int,
     val color: Color = Color.Unspecified,
@@ -53,14 +53,14 @@ private fun Color.toTint(): ColorFilter? = if (this != Color.Unspecified) {
     null
 }
 
-internal class VectorImageProvider : PreviewParameterProvider<VectorImageParameters> {
-    override val values: Sequence<VectorImageParameters> = sequenceOf(
-        VectorImageParameters(
+internal class VectorImageProvider : PreviewParameterProvider<VectorImagePreviewParameters> {
+    override val values: Sequence<VectorImagePreviewParameters> = sequenceOf(
+        VectorImagePreviewParameters(
             contentDescription = R.string.vector_image_content_description,
             image = R.drawable.ic_vector_image,
             color = Color.Black,
         ),
-        VectorImageParameters(
+        VectorImagePreviewParameters(
             contentDescription = R.string.vector_image_content_description,
             image = R.drawable.ic_vector_image,
         ),
@@ -71,7 +71,7 @@ internal class VectorImageProvider : PreviewParameterProvider<VectorImageParamet
 @PreviewLightDark
 internal fun VectorImagePreview(
     @PreviewParameter(VectorImageProvider::class)
-    parameters: VectorImageParameters,
+    parameters: VectorImagePreviewParameters,
 ) {
     GdsTheme {
         GdsVectorImage(
